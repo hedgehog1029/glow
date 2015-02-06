@@ -17,7 +17,8 @@
         <div class="wrapper">
             <div class="col-lg-2">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search Spotify...">
+                    <input type="text" class="form-control" id="abc" placeholder="Search Spotify...">
+                    <button type="button" onclick="submit()"></button>
                 </div>
                 <div id="results"></div>
             </div>
@@ -28,15 +29,19 @@
             function search(search) {
                 var url = "https://api.spotify.com/v1/search?type=track&q=" + search;
                 $.get(url, function(data) {
-                    searchData = JSON.parse(data);
+                    searchData = JSON.parse(JSON.stringify(data));
+                    var div = document.getElementById("results");
+                    for (track in searchData["tracks"]["items"]) {
+                        var img = document.createElement("img");
+                        var attr = document.createAttribute("src").value = track["album"]["images"][2];
+                        img.appendChild(attr);
+                        div.appendChild(img);
+                    }
                 });
-                var div = document.getElementById("results");
-                for (track in searchData["tracks"]["items"]) {
-                    var img = document.createElement("img");
-                    var attr = document.createAttribute("src").value = track["album"]["images"][2];
-                    img.appendChild(attr);
-                    div.appendChild(img);
-                }
+            }
+
+            function submit() {
+                search(document.getElementById("abc").value);
             }
         </script>
     </body>
