@@ -18,9 +18,14 @@
             <div class="col-lg-3">
                 <div class="input-group">
                     <input type="text" class="form-control" id="abc" placeholder="Search Spotify...">
-                    <button class="btn btn-default" type="button" onclick="submit()">Submit</button>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" onclick="submit()">Submit</button>
+                    </span>
                 </div>
                 <div id="results" class="col-lg-10"></div>
+            </div>
+            <div class="col-lg-7">
+                <audio controls src="http://192.168.0.18:1346"></audio><!-- this is a test  - will point to localhost later -->
             </div>
         </div>
         <script type="text/javascript">
@@ -34,11 +39,20 @@
                         var result = document.createElement("div");
                         var img = document.createElement("img");
                         var info = document.createElement("p");
+                        var play = document.createElement("button");
+                        var icon = document.createElement("span");
 
                         img.setAttribute("src", track["album"]["images"][2]["url"]);
+                        play.setAttribute("class", "btn btn-default");
+                        play.setAttribute("type", "button");
+                        play.setAttribute("onclick", "playTrack(" + track["uri"] + ")");
+                        icon.setAttribute("class", "glyphicon glyphicon-play");
+
+                        play.appendChild(icon);
 
                         result.appendChild(img);
                         result.appendChild(info);
+                        result.appendChild(play);
                         result.appendChild(document.createElement("hr"));
 
                         info.innerHTML = track["name"] + " - " + track["artists"][0]["name"];
@@ -50,6 +64,10 @@
 
             function submit() {
                 search(document.getElementById("abc").value);
+            }
+
+            function playTrack(uri) {
+
             }
         </script>
     </body>
