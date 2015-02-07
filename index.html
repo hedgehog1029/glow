@@ -34,11 +34,15 @@
                         var result = document.createElement("div");
                         var img = document.createElement("img");
                         var info = document.createElement("p");
+
                         img.setAttribute("src", track["album"]["images"][2]["url"]);
+
                         result.appendChild(img);
                         result.appendChild(info);
                         result.appendChild(document.createElement("hr"));
+
                         info.innerHTML = track["name"] + " - " + track["artists"][0]["name"];
+
                         div.appendChild(result);
                     });
                 });
