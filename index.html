@@ -15,28 +15,32 @@
             <hr>
         </div>
         <div class="wrapper">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <div class="input-group">
                     <input type="text" class="form-control" id="abc" placeholder="Search Spotify...">
-                    <button type="button" onclick="submit()"></button>
+                    <button class="btn btn-default" type="button" onclick="submit()">Submit</button>
                 </div>
-                <div id="results"></div>
+                <div id="results" class="col-lg-10"></div>
             </div>
         </div>
         <script type="text/javascript">
-            var searchData;
-
             function search(search) {
                 var url = "https://api.spotify.com/v1/search?type=track&q=" + search;
                 $.get(url, function(data) {
-                    searchData = JSON.parse(JSON.stringify(data));
                     var div = document.getElementById("results");
-                    for (track in searchData["tracks"]["items"]) {
+                    div.innerHTML = "";
+                    div.setAttribute("style", "visibility: visible;");
+                    data["tracks"]["items"].forEach(function(track, index) {
+                        var result = document.createElement("div");
                         var img = document.createElement("img");
-                        var attr = document.createAttribute("src").value = track["album"]["images"][2];
-                        img.appendChild(attr);
-                        div.appendChild(img);
-                    }
+                        var info = document.createElement("p");
+                        img.setAttribute("src", track["album"]["images"][2]["url"]);
+                        result.appendChild(img);
+                        result.appendChild(info);
+                        result.appendChild(document.createElement("hr"));
+                        info.innerHTML = track["name"] + " - " + track["artists"][0]["name"];
+                        div.appendChild(result);
+                    });
                 });
             }
 
