@@ -25,7 +25,7 @@
                 <div id="results" class="col-lg-10"></div>
             </div>
             <div class="col-lg-7">
-                <audio controls src="http://192.168.0.18:1346"></audio><!-- this is a test  - will maybe do host finding later -->
+                <!-- <audio controls src="http://192.168.0.18:1346"></audio> this is a test  - will maybe do host finding later -->
             </div>
         </div>
         <script type="text/javascript">
@@ -45,7 +45,7 @@
                         img.setAttribute("src", track["album"]["images"][2]["url"]);
                         play.setAttribute("class", "btn btn-default");
                         play.setAttribute("type", "button");
-                        play.setAttribute("onclick", "playTrack(" + track["uri"] + ")");
+                        play.setAttribute("onclick", "playTrack('" + track["uri"] + "')");
                         icon.setAttribute("class", "glyphicon glyphicon-play");
 
                         play.appendChild(icon);
